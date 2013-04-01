@@ -277,6 +277,11 @@ public class Servlet extends HttpServlet {
 		Map<String, String[]> params = request.getParameterMap();
 		String action = params.containsKey("cmd") ? params.get("cmd")[0] : "";
 		
+		// if crash, stop responding to RPC and HTTP requests
+		if (action.equals("Crash")) {
+			System.exit(0);
+		}
+		
 		// cookie_data is null, new session.
 		if (cookie_data == null) {
 			new_session = new Session(this.serverAddress, this.serverPort);
